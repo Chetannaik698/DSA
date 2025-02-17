@@ -13,8 +13,7 @@ public class RatInMaze {
 
     if(maze[row][col] == -1 || maze[row][col] == 1) {
       // already visited cell or blocked cell
-      return;
-    }
+      return;    }
 
     if(row == n - 1 && col == n - 1) {
       System.out.println(path);

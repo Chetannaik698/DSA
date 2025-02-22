@@ -11,7 +11,7 @@ public class FirstOuccurence {
     }
 
     public static void main(String[] args) {
-        int arr[] = {8, 4, 5, 6, 7, 5,  7 ,9, 10};
+        int arr[] = {8, 4,-, 6, 7, 5, 7 ,9, 10};
         System.out.println(fristOuccurence(arr, 5, 0));
     }
 }

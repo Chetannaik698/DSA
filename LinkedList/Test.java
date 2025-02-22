@@ -124,7 +124,76 @@ public class Test {
             return val;
         }
 
-    }
+        public int itrSearch(int key) {
+            Node temp = head;
+            int i = 0;
+
+            while (temp != null) {
+                if (temp.data == key) {
+                    return i;
+                }
+                temp = temp.next;
+                i++;
+            }
+            return -1;
+        }
+
+        public int helper(Node head, int key) {
+            if (head == null) {
+                return -1;
+            }
+            if (head.data == key) {
+                return 0;
+            }
+            int idx = helper(head.next, key);
+            if (idx == -1) {
+                return -1;
+            }
+            return idx + 1;
+        }
+
+        public int recSearch(int key) {
+            return helper(head, key);
+        }
+
+        public void reverse() {
+            Node prev = null;
+            Node curr = tail = head;
+            Node next;
+
+            while (curr != null) {
+                next = curr.next;
+                curr.next = prev;
+                prev = curr;
+                curr = next;
+            }
+            head = prev;
+        }
+      
+        public void deleteNthfromEnd(int n) { //important
+            //calculate size
+            int size = 0;
+            Node temp = head;
+            while (temp != null) {
+                temp = temp.next;
+                size++;
+            }
+            if (n == size) {
+                head = head.next;
+            }
+            //
+            int i=1;
+            int indToFnd = size - n;
+            Node prev = head;
+            while (i < indToFnd) {
+                prev = prev.next;
+                i++;
+            }
+            prev.next = prev.next.next;
+            return;
+        }
+
+    } 
 
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
@@ -134,9 +203,11 @@ public class Test {
         list.addLast(40);
         list.addMiddle(3, 35);
 
-        list.removeFirst();
-        list.removeLast();
+        // list.removeFirst();
+        // list.removeLast();
 
-        list.print();
+         list.print();
+         list.deleteNthfromEnd(3);
+         list.print();
     }
 }

@@ -1,5 +1,7 @@
 package LinkedList;
 
+import LinkedList.Test.LinkedList.Node;
+
 public class Test {
 
     public static class LinkedList {
@@ -169,9 +171,9 @@ public class Test {
             }
             head = prev;
         }
-      
-        public void deleteNthfromEnd(int n) { //important
-            //calculate size
+
+        public void deleteNthfromEnd(int n) { // important
+            // calculate size
             int size = 0;
             Node temp = head;
             while (temp != null) {
@@ -182,7 +184,7 @@ public class Test {
                 head = head.next;
             }
             //
-            int i=1;
+            int i = 1;
             int indToFnd = size - n;
             Node prev = head;
             while (i < indToFnd) {
@@ -193,21 +195,118 @@ public class Test {
             return;
         }
 
-    } 
+        // slow fast approach
+        public Node findMid(Node head) {
+            Node slow = head;
+            Node fast = head;
+
+            while (fast != null && fast.next != null) {
+                slow = slow.next; // +1
+                fast = fast.next.next; // +2
+            }
+            return slow;
+        }
+
+        public boolean isPalindrome() {
+            if (head == null || head.next == null) {
+                return true;
+            }
+            // setp1 - find mid
+            Node midNode = findMid(head);
+
+            // step2 - reverse 2nd half
+            Node prev = null;
+            Node curr = midNode;
+            Node next;
+            while (curr != null) {
+                next = curr.next;
+                curr.next = prev;
+                prev = curr;
+                curr = next;
+            }
+
+            Node right = prev; // right half head
+            Node left = head;
+
+            // ste3 - check left half and right half
+            while (right != null) {
+                if (left.data != right.data) {
+                    return false;
+                }
+                left = left.next;
+                right = right.next;
+            }
+            return true;
+        }
+
+        public static boolean isCycle() {
+            Node slow = head;
+            Node fast = head;
+
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+                if (slow == fast) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static void removeCycle() {
+            // detect cycle
+            Node slow = head;
+            Node fast = head;
+
+            boolean cycle = false;
+
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+                if (slow == fast) {
+                   cycle = true;
+                   return;
+                }
+            }
+            if (cycle == false) {
+                return;
+            }
+
+            // find meeting point
+            slow = head;
+            Node prev = null;
+            while (slow != fast) {
+                prev = fast;
+                slow = slow.next;
+                fast = fast.next;
+            }
+
+            // remove cycle -> last.next = null
+            prev.next = null; 
+        }
+
+    }
 
     public static void main(String[] args) {
-        LinkedList list = new LinkedList();
-        list.addFirst(20);
-        list.addFirst(10);
-        list.addLast(30);
-        list.addLast(40);
-        list.addMiddle(3, 35);
+        // LinkedList list = new LinkedList();
+        // list.addFirst(2);
+        // list.addFirst(2);
+        // list.addFirst(1);
+        // list.addFirst(2);
+        // list.addFirst(3);
 
-        // list.removeFirst();
-        // list.removeLast();
+        // list.print();
+        // System.out.println(list.isPalindrome());
 
-         list.print();
-         list.deleteNthfromEnd(3);
-         list.print();
+        // cycle in lined list
+        LinkedList.head = new LinkedList.Node(1);
+        Node temp = new Node(2);
+        LinkedList.head.next = new LinkedList.Node(2);
+        LinkedList.head.next.next = new LinkedList.Node(3);
+        LinkedList.head.next.next.next = temp;
+
+        System.out.println(LinkedList.isCycle());
+        LinkedList.removeCycle();
+        System.out.println(LinkedList.isCycle());
     }
 }

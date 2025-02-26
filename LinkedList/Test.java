@@ -264,8 +264,8 @@ public class Test {
                 slow = slow.next;
                 fast = fast.next.next;
                 if (slow == fast) {
-                   cycle = true;
-                   return;
+                    cycle = true;
+                    return;
                 }
             }
             if (cycle == false) {
@@ -282,31 +282,82 @@ public class Test {
             }
 
             // remove cycle -> last.next = null
-            prev.next = null; 
+            prev.next = null;
+        }
+
+        // zigzag
+        // Zig-zag rearrangement of linked list
+        public void zigzag() {
+            if (head == null || head.next == null) {
+                return;
+            }
+
+            // 1. Find middle of the linked list
+            Node slow = head;
+            Node fast = head.next;
+
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+
+            Node mid = slow;
+
+            // 2. Reverse the second half
+            Node curr = mid.next;
+            mid.next = null; // Split the list into two halves
+            Node prev = null;
+            Node next;
+
+            while (curr != null) {
+                next = curr.next;
+                curr.next = prev;
+                prev = curr;
+                curr = next;
+            }
+
+            // 3. Merge in zig-zag fashion
+            Node left = head;
+            Node right = prev; // Head of reversed second half
+            Node nextL;
+            Node nextR;
+
+            while (left != null && right != null) {
+                nextL = left.next;
+                nextR = right.next;
+
+                left.next = right;
+                right.next = nextL;
+
+                // Move forward
+                left = nextL;
+                right = nextR;
+            }
         }
 
     }
 
     public static void main(String[] args) {
-        // LinkedList list = new LinkedList();
-        // list.addFirst(2);
-        // list.addFirst(2);
-        // list.addFirst(1);
-        // list.addFirst(2);
-        // list.addFirst(3);
+        LinkedList list = new LinkedList();
+        list.addFirst(2);
+        list.addFirst(2);
+        list.addFirst(1);
+        list.addFirst(2);
+        list.addFirst(3);
 
-        // list.print();
-        // System.out.println(list.isPalindrome());
+        list.print();
+        list.zigzag();
+        list.print();
 
         // cycle in lined list
-        LinkedList.head = new LinkedList.Node(1);
-        Node temp = new Node(2);
-        LinkedList.head.next = new LinkedList.Node(2);
-        LinkedList.head.next.next = new LinkedList.Node(3);
-        LinkedList.head.next.next.next = temp;
+        // LinkedList.head = new LinkedList.Node(1);
+        // Node temp = new Node(2);
+        // LinkedList.head.next = new LinkedList.Node(2);
+        // LinkedList.head.next.next = new LinkedList.Node(3);
+        // LinkedList.head.next.next.next = temp;
 
-        System.out.println(LinkedList.isCycle());
-        LinkedList.removeCycle();
-        System.out.println(LinkedList.isCycle());
+        // System.out.println(LinkedList.isCycle());
+        // LinkedList.removeCycle();
+        // System.out.println(LinkedList.isCycle());
     }
 }

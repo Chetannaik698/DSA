@@ -3,7 +3,7 @@ import java.util.*;
 
 public class NextGreater {
     public static void main(String[] args) {
-        int arr[] = {6, 8, 0, 1, 3};
+        int arr[] = {4, 9, 0 ,5, 7 ,8};
         Stack<Integer> s = new Stack<>();
         int nextGreater[] = new int[arr.length];
 
@@ -29,3 +29,7 @@ public class NextGreater {
         System.out.println();
     }
 }
+//next greater right
+//next greater left
+//next smallest
+//next smaller left

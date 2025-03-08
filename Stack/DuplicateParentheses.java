@@ -15,7 +15,7 @@ public class DuplicateParentheses {
                 while (s.peek() != '(') {
                     s.pop();
                     count++;
-                }
+                }g`
                 if (count < 1) {
                     return true; //dublicate
                 }

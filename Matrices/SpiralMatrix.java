@@ -9,8 +9,32 @@ public class SpiralMatrix {
         int endCol = matrix[0].length;
 
         while (startRow <= endRow && startCol <= endCol) {
-            //top boundrey
+            //top
+            for(int j=startCol; i<=endCol; j++) {
+                System.out.print(matrix[startRow][j] + " ");
+            }
+
+            //right
+            for(int i=startRow+1; i<=endRow; i++){
+                System.out.print(matrix[i][endCol] + " ");
+            }
+
+            //bottom
+            for(int j=endCol-1; j>=startCol; j-- ){
+                System.out.print(matrix[endRow][j] + " ");
+            }
+
+            //left
+            for(int i=endRow-1; i<startRow+1; i--){
+                 System.out.print(matrix[i][startCol] + " ");
+            }
+
+            startCol++;
+            startRow++;
+            endCol--;
+            endRow--;
         }
+        System.out.println();
     }
 
     public static void main(String[] args) {
@@ -20,5 +44,7 @@ public class SpiralMatrix {
             {9, 10, 11, 12},
             {13, 14, 15, 16},
         };
+
+        printSpiral(matrix);
     }
 }
